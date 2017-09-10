@@ -6,22 +6,40 @@
 	
 	Map <name,node>
 	
-	Method addNode(String name);
+	Void addNode(String name);
 	
-	Method addEdge(String u,String v,int val);
+	Void addEdge(String u,String v,int weight = 1);
 	
-	Method clear();
+	Void clear();
 	
-	Method setNodeColor(String name,String color);
+	Void setNodeColor(String name,String color);
 	
-	Method setEdgeColor(String u,String v,String color);
+	Void setEdgeColor(String u,String v,String color);
 	
-	Method clearColor();
+	Void clearColor();
 	
-	Method getToList(String name);
+	Node getNode(String name);
 	
-	Method getEdgeWeight(String u,String v);
+	//Method getToList(String name);
 	
+	//Method getEdgeWeight(String u,String v);
+	
+**}**
+
+**Class Node{**
+
+	String name,color;
+	
+	List<Edge> edges;
+	
+**}**
+
+**Class Edge{**
+
+	String to,color;
+	
+	int weight;
+
 **}**
 
 ---
