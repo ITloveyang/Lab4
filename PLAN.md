@@ -8,7 +8,11 @@
 	
 	Void addNode(String name);
 	
+	void deleteNode(String name);
+	
 	Void addEdge(String u,String v,int weight = 1);
+	
+	void deleteEdge(String from, String to);
 	
 	Void clear();
 	
