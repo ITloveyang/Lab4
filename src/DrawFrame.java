@@ -4,7 +4,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -117,8 +119,8 @@ public class DrawFrame extends JFrame {
 					WordGraph.setEdgeColor(word1,tempString, "yellow");
 					WordGraph.setEdgeColor(tempString,word2,"yellow");
 				}
-				ImageIcon img = new ImageIcon("tmp/img.png");
-				label.setIcon(img);
+				flush();
+				flush();
 				JOptionPane.showMessageDialog(null,S,"BridgeWords:",JOptionPane.PLAIN_MESSAGE);
 			
 			}
@@ -131,9 +133,16 @@ public class DrawFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			showGraph.showDirectedGraph(WordGraph);
-	        ImageIcon img = new ImageIcon("tmp/img.png");// 创建图片对象
-	        label.setIcon(img);
+	        flush();
+	        flush();
 		}
-		
+	}
+	void flush(){
+		try {
+			label.setIcon(new ImageIcon(ImageIO.read(new File("tmp/img.png"))));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

@@ -33,10 +33,13 @@ public class showGraph {
 
 	private static void generateImage(String filename) {
 		Runtime rt=Runtime.getRuntime();
+		
 		try {
 			rt.exec("cmd /c if not exist tmp md tmp");
 			String[] args= {Config.dotForWindows,filename,"-Tpng","-o",Config.tmpPath+"img.png"};
-			rt.exec(args);
+			Process process = rt.exec(args);
+			process.waitFor();
+			
 		}catch (Exception e) {
 			throw new RuntimeException("Failed to generate image.");
 		}
