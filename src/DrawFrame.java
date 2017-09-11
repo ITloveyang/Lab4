@@ -27,6 +27,7 @@ public class DrawFrame extends JFrame {
 	JTextField Word1 = new JTextField(30);
 	JTextField Word2 = new JTextField(30);
 	JButton Open = new JButton("OpenFile");
+	JButton Show = new JButton("ShowGraph");
 	Dialog myDialog  = new Dialog(this,"");
 	private JPanel myPanel;
 	public DrawFrame()
@@ -51,8 +52,12 @@ public class DrawFrame extends JFrame {
 		queryBridgeWordsAction QueryBridgeWordsAction = new queryBridgeWordsAction();
 		QueryBridgeWords.addActionListener(QueryBridgeWordsAction);
 		
+		showGraphAction ShowGraph = new showGraphAction();
+		Show.addActionListener(ShowGraph);
+		
 		myPanel.add(Open);
 		myPanel.add(QueryBridgeWords);
+		myPanel.add(Show);
 		
 		add(myPanel);
 		
@@ -113,6 +118,16 @@ public class DrawFrame extends JFrame {
 				}
 				JOptionPane.showMessageDialog(null,S,"BridgeWords:",JOptionPane.PLAIN_MESSAGE);
 			}
+		}
+		
+	}
+	private class showGraphAction implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			showGraph.showDirectedGraph(WordGraph);
+			
 		}
 		
 	}

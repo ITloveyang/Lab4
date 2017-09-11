@@ -34,6 +34,7 @@ public class MyFile {
 						tempchar = (char)tempint;
 						
 					}
+					
 					node.add(tempstring);
 				}
 			}
@@ -54,23 +55,17 @@ public class MyFile {
 		edge.sort(null);
 		int cnt = 1;
 		for (int i = 0 ; i < edge.size() ; i++){
-			if (i == 0) cnt = 1;
-			else if (edge.get(i).equals( edge.get(i - 1))){
-				cnt++;
-			}
-			else{
+			if (i+1== edge.size() || !edge.get(i).equals(edge.get(i + 1))){
 				S = edge.get(i).split(" ");
 				G.addEdge(S[0],S[1],cnt);
 				System.out.println(S[0]+" "+S[1]+" " + cnt);
 				cnt = 1;
 			}
+			else{
+				cnt++;
+			}
 		}
-		if (node.size() > 1&&cnt!=1){
-			S = edge.get(edge.size()-1).split(" ");
-			G.addEdge(S[0],S[1],cnt);
-			System.out.println(S[0]+" "+S[1]+" " + cnt);
-		}
-		else if (node.size() == 1){
+		if (node.size() == 1){
 			 G.addNode(node.get(0));
 		}
 		else if (node.size() == 0){

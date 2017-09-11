@@ -1,8 +1,22 @@
 digraph G{
-A[color=black];
-B[color=red];
-C[color=black];
+study[color=black];
+world[color=black];
+Hello[color=black];
+ACM[color=black];
+up[color=black];
+to[color=black];
+day[color=black];
+good[color=black];
+welcome[color=black];
 
-A->B[label=1, color=purple];
-A->C[label=1, color=black];
+study->day[label=1, color=black];
+Hello->world[label=1, color=black];
+ACM->Hello[label=1, color=black];
+up->welcome[label=1, color=black];
+to->ACM[label=1, color=black];
+day->day[label=1, color=black];
+day->up[label=1, color=black];
+good->good[label=1, color=black];
+good->study[label=1, color=black];
+welcome->to[label=1, color=black];
 }
