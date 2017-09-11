@@ -4,8 +4,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import com.sun.prism.paint.Color;
 
 public class DrawFrame extends JFrame {
 	String filename;
@@ -29,6 +28,7 @@ public class DrawFrame extends JFrame {
 	JButton Open = new JButton("OpenFile");
 	JButton Show = new JButton("ShowGraph");
 	Dialog myDialog  = new Dialog(this,"");
+	JLabel label = new JLabel();
 	private JPanel myPanel;
 	public DrawFrame()
 	{   
@@ -58,6 +58,7 @@ public class DrawFrame extends JFrame {
 		myPanel.add(Open);
 		myPanel.add(QueryBridgeWords);
 		myPanel.add(Show);
+		myPanel.add(label);
 		
 		add(myPanel);
 		
@@ -127,7 +128,8 @@ public class DrawFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			showGraph.showDirectedGraph(WordGraph);
-			
+	        ImageIcon img = new ImageIcon("tmp/img.png");// 创建图片对象
+	        label.setIcon(img);
 		}
 		
 	}
