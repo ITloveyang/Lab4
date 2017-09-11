@@ -1,5 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Graph {
 	private Map<String,Node> nodes = new HashMap<>();
@@ -52,7 +54,16 @@ public class Graph {
 		if(nodes.get(to)==null)nodes.put(to, new Node(to));
 		Integer index=findEdgeIndex(from,to);
 		if(index!=null)nodes.get(from).edges.get(index).weight+=weight;
-		else nodes.get(from).edges.add(new Edge(to));
+		else nodes.get(from).edges.add(new Edge(from,to));
+	}
+
+	/**
+	 * Add an edge with from and to node name, default edge weight is 1.
+	 * @param from String
+	 * @param to String
+	 */
+	public void addEdge(String from, String to) {
+		addEdge(from,to,1);
 	}
 	
 	/**
@@ -63,15 +74,6 @@ public class Graph {
 	public void deleteEdge(String from, String to) {
 		Integer index=findEdgeIndex(from,to);
 		if(index!=null)nodes.get(from).edges.remove((int)index);
-	}
-	
-	/**
-	 * Add an edge with from and to node name, default edge weight is 1.
-	 * @param from String
-	 * @param to String
-	 */
-	public void addEdge(String from, String to) {
-		addEdge(from,to,1);
 	}
 	
 	/**
@@ -105,6 +107,16 @@ public class Graph {
 	}
 	
 	/**
+	 * Get a list of reference of all nodes.
+	 * @return
+	 */
+	public List<Node> getNodeList(){
+		List<Node> nodeList=new ArrayList<>();
+		for(Node node:nodes.values())nodeList.add(node);
+		return nodeList;
+	}
+	
+	/**
 	 * Clear the Graph. 
 	 */
 	public void clear() {
@@ -117,9 +129,9 @@ public class Graph {
 	public void clearColor() {
 		if(nodes.isEmpty())return;
 		for(Node node:nodes.values()) {
-			node.color="none";
+			node.clearColor();
 			for(Edge edge:node.edges) {
-				edge.color="none";
+				edge.clearColor();
 			}
 		}
 	}
