@@ -131,7 +131,7 @@ public class DrawFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			showGraph.showDirectedGraph(WordGraph);
+			ShowGraph.showDirectedGraph(WordGraph);
 	        flush();
 		}
 	}

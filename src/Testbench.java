@@ -6,6 +6,6 @@ public class Testbench {
 		G.addEdge("A", "C");
 		G.setEdgeColor("A", "B", "purple");
 		G.setNodeColor("B", "red");
-		showGraph.showDirectedGraph(G);
+		ShowGraph.showDirectedGraph(G);
 	}
 }

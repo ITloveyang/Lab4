@@ -2,7 +2,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class showGraph {
+public class ShowGraph {
 	
 	public static void showDirectedGraph(Graph G) {
 		StringBuilder dotText=new StringBuilder();
