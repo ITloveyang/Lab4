@@ -32,3 +32,5 @@ graphviz-2.38/
 
 # Temp file
 tmp/
+tmp/img.png
+tmp/graph.gv
