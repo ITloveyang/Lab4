@@ -120,7 +120,6 @@ public class DrawFrame extends JFrame {
 					WordGraph.setEdgeColor(tempString,word2,"yellow");
 				}
 				flush();
-				flush();
 				JOptionPane.showMessageDialog(null,S,"BridgeWords:",JOptionPane.PLAIN_MESSAGE);
 			
 			}
@@ -133,7 +132,6 @@ public class DrawFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			showGraph.showDirectedGraph(WordGraph);
-	        flush();
 	        flush();
 		}
 	}
