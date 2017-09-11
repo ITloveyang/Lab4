@@ -117,7 +117,10 @@ public class DrawFrame extends JFrame {
 					WordGraph.setEdgeColor(word1,tempString, "yellow");
 					WordGraph.setEdgeColor(tempString,word2,"yellow");
 				}
+				ImageIcon img = new ImageIcon("tmp/img.png");
+				label.setIcon(img);
 				JOptionPane.showMessageDialog(null,S,"BridgeWords:",JOptionPane.PLAIN_MESSAGE);
+			
 			}
 		}
 		
