@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import com.sun.prism.paint.Color;
 
 public class DrawFrame extends JFrame {
 	String filename;
