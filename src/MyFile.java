@@ -50,7 +50,7 @@ public class MyFile {
 	         }
 		}
 		for (int i = 1 ; i < node.size() ; i++){
-			edge.add( node.get( i-1 ) +" "+ node.get( i ));
+			edge.add( node.get( i-1 ).toLowerCase() +" "+ node.get( i ).toLowerCase());
 		}
 		edge.sort(null);
 		int cnt = 1;
