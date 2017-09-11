@@ -2,13 +2,20 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class MyFile {
-	static ArrayList<String> Node = new ArrayList<>();
-	static ArrayList<String> Edge = new ArrayList<>();
-	public static String[] S = new String[3];
-	public static void createDirectedGraph(String filename){
+	
+	/**
+	 * open the file, read , and create a Graph;
+	 * @param filename
+	 * @return Graph
+	 */
+	public static Graph createDirectedGraph(String filename){
+		Graph G = new Graph();
+		ArrayList<String> node = new ArrayList<>();
+		ArrayList<String> edge = new ArrayList<>();
+		String[] S = new String[3];
 		File file = new File(filename);
 		if  (!file.exists()){
-			return ;
+			return null;
 		}
 		Reader reader = null;
 		
@@ -27,7 +34,7 @@ public class MyFile {
 						tempchar = (char)tempint;
 						
 					}
-					Node.add(tempstring);
+					node.add(tempstring);
 				}
 			}
 		} catch (Exception e) {
@@ -41,33 +48,41 @@ public class MyFile {
 	            }
 	         }
 		}
-		for (int i = 1 ; i < Node.size() ; i++){
-			Edge.add( Node.get( i-1 ) +" "+ Node.get( i ));
+		for (int i = 1 ; i < node.size() ; i++){
+			edge.add( node.get( i-1 ) +" "+ node.get( i ));
 		}
-		Edge.sort(null);
+		edge.sort(null);
 		int cnt = 1;
-		for (int i = 0 ; i < Edge.size() ; i++){
+		for (int i = 0 ; i < edge.size() ; i++){
 			if (i == 0) cnt = 1;
-			else if (Edge.get(i).equals( Edge.get(i - 1))){
+			else if (edge.get(i).equals( edge.get(i - 1))){
 				cnt++;
 			}
 			else{
-				S = Edge.get(i).split(" ");
-				//Gragh.addedge(S[0],s[1],cnt);
+				S = edge.get(i).split(" ");
+				G.addEdge(S[0],S[1],cnt);
 				System.out.println(S[0]+" "+S[1]+" " + cnt);
 				cnt = 1;
 			}
 		}
-		if (Node.size() > 1&&cnt!=1){
-			S = Edge.get(Edge.size()-1).split(" ");
-			//Gragh.addedge(S[0],s[1],cnt);
+		if (node.size() > 1&&cnt!=1){
+			S = edge.get(edge.size()-1).split(" ");
+			G.addEdge(S[0],S[1],cnt);
 			System.out.println(S[0]+" "+S[1]+" " + cnt);
 		}
-		else{
-			// 0 Node 1 Node 
+		else if (node.size() == 1){
+			 G.addNode(node.get(0));
 		}
-		return;
+		else if (node.size() == 0){
+			return null;
+		}
+		return G;
 	}
+	/**
+	 * Judge weather a Char
+	 * @param TestChar
+	 * @return
+	 */
 	static boolean IsChar(char TestChar){
 		if ((TestChar>='a'&& TestChar <='z')||(TestChar>='A'&& TestChar <='Z'))
 			return true;

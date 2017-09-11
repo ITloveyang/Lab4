@@ -1,22 +1,36 @@
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import com.sun.prism.paint.Color;
+
 public class DrawFrame extends JFrame {
-	private JPanel MyPanel;
 	String filename;
+	Graph WordGraph = new Graph();
+	/**
+	 * the Frame
+	 */
+	JButton QueryBridgeWords = new JButton("QueryBridgeWords");
+	JTextField Word1 = new JTextField(30);
+	JTextField Word2 = new JTextField(30);
+	JButton Open = new JButton("OpenFile");
+	Dialog myDialog  = new Dialog(this,"");
+	private JPanel myPanel;
 	public DrawFrame()
 	{   
-		
 		try{
 		UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		}catch (Exception e){e.printStackTrace();}
@@ -24,18 +38,31 @@ public class DrawFrame extends JFrame {
 		Dimension screenSize = kit.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
-		setSize(2*screenWidth/5,2*screenWidth/5);
+		setSize(2*screenWidth/10,2*screenWidth/10);
 		setLocationByPlatform(true);
+		myPanel = new JPanel();
 		
-		MyPanel = new JPanel();
-		
-		JButton Open = new JButton("Open");
-		MyPanel.add(Open);
 		OpenAction openAction = new OpenAction();
 		Open.addActionListener(openAction);
 		
-		add(MyPanel);
+		myPanel.add(Word1);
+		myPanel.add(Word2);
+		
+		queryBridgeWordsAction QueryBridgeWordsAction = new queryBridgeWordsAction();
+		QueryBridgeWords.addActionListener(QueryBridgeWordsAction);
+		
+		myPanel.add(Open);
+		myPanel.add(QueryBridgeWords);
+		
+		add(myPanel);
+		
 	}
+	/**
+	 * choose and open file
+	 * 
+	 * @author LJR
+	 *
+	 */
 	private class OpenAction implements ActionListener
 	{
 		@Override
@@ -47,11 +74,46 @@ public class DrawFrame extends JFrame {
 	        File file=jfc.getSelectedFile();   
 	        filename =  file.getAbsolutePath();
 	        System.out.println(filename);
-	        MyFile myfile = new MyFile();
-	        myfile.createDirectedGraph(filename);
-	        
+	        WordGraph = MyFile.createDirectedGraph(filename);
+	        if (WordGraph == null)
+	        	System.out.println(0);
 		}
 	}
 	
-	
+	private class queryBridgeWordsAction implements ActionListener
+	{	
+		String word1,word2;
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			String S = "";
+			word1 = Word1.getText();
+			word2 = Word2.getText();
+			S = querry.queryBridgeWords(WordGraph,word1,word2);
+			if (S.equals("1")){
+				JOptionPane.showMessageDialog(null,"The first word is not exist","Error",JOptionPane.ERROR_MESSAGE);
+			}
+			else if (S.equals("2")){
+				JOptionPane.showMessageDialog(null,"The second word is not exist","Error",JOptionPane.ERROR_MESSAGE);
+			}
+			else if (S.equals("3")){
+				JOptionPane.showMessageDialog(null,"The both words are not exist","Error",JOptionPane.ERROR_MESSAGE);
+			}
+			else if (S.equals("0")){
+				JOptionPane.showMessageDialog(null,"There is no BridgeWords","Sorry",JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				WordGraph.setNodeColor(word1, "blue");
+				WordGraph.setNodeColor(word2, "red");
+				String[] BridgeWords = S.split(" ");
+				for (String tempString : BridgeWords){
+					WordGraph.setNodeColor(tempString, "green");
+					WordGraph.setEdgeColor(word1,tempString, "yellow");
+					WordGraph.setEdgeColor(tempString,word2,"yellow");
+				}
+				JOptionPane.showMessageDialog(null,S,"BridgeWords:",JOptionPane.PLAIN_MESSAGE);
+			}
+		}
+		
+	}
 }
