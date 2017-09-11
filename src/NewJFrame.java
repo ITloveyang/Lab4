@@ -171,7 +171,7 @@ public class NewJFrame extends JFrame {
 					WordGraph.setEdgeColor(word1,tempString, "green");
 					WordGraph.setEdgeColor(tempString,word2,"green");
 				}
-				showGraph.showDirectedGraph(WordGraph);
+				ShowGraph.showDirectedGraph(WordGraph);
 				flush();
 				JOptionPane.showMessageDialog(null,S,"BridgeWords:",JOptionPane.PLAIN_MESSAGE);
 			
@@ -184,7 +184,7 @@ public class NewJFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			showGraph.showDirectedGraph(WordGraph);
+			ShowGraph.showDirectedGraph(WordGraph);
 	        flush();
 		}
 	}
