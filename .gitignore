@@ -30,5 +30,7 @@ hs_err_pid*
 #graphviz
 graphviz-2.38/
 
-#Temp file
+# Temp file
 tmp/
+tmp/img.png
+tmp/graph.gv
