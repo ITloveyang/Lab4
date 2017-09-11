@@ -2,7 +2,7 @@
 
 **Class Graph{**
 
-	node { name;color; Vector edge{to,weight,color;} }
+	node { name;color; Vector edge{from,to,weight,color;} }
 	
 	Map <name,node>
 	
@@ -23,6 +23,8 @@
 	Void clearColor();
 	
 	Node getNode(String name);
+	
+	public List<Node> getNodeList();
 	
 	//Method getToList(String name);
 	
