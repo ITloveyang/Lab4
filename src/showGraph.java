@@ -18,8 +18,9 @@ public class showGraph {
 		}
 		dotText.append("}\n");
 		
+		String dotFilename=Config.tmpPath+"graph.gv";
 		try {
-			FileWriter fw=new FileWriter("graph.gv");
+			FileWriter fw=new FileWriter(dotFilename);
 			BufferedWriter bufw = new BufferedWriter(fw);
 			bufw.write(dotText.toString());
 			bufw.close();
@@ -27,14 +28,15 @@ public class showGraph {
 			throw new RuntimeException("Failed to open file");
 		}
 		
-		generateImage("graph.gv");
+		generateImage(dotFilename);
 	}
 
 	private static void generateImage(String filename) {
-		String graphvizPath=".\\graphviz-2.38\\release\\bin\\dot.exe";
 		Runtime rt=Runtime.getRuntime();
 		try {
-			rt.exec("cmd /c "+graphvizPath+" "+filename+" -Tpng -o img.png");
+			rt.exec("cmd /c if not exist tmp md tmp");
+			String[] args= {Config.dotForWindows,filename,"-Tpng","-o",Config.tmpPath+"img.png"};
+			rt.exec(args);
 		}catch (Exception e) {
 			throw new RuntimeException("Failed to generate image.");
 		}

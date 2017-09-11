@@ -1,0 +1,8 @@
+digraph G{
+A[color=black];
+B[color=red];
+C[color=black];
+
+A->B[label=1, color=purple];
+A->C[label=1, color=black];
+}
