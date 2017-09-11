@@ -33,7 +33,7 @@ public class Graph {
 		Node node=nodes.get(from);
 		if(node==null)return null;
 		for(int i=0;i<node.edges.size();i++) {
-			if(node.edges.get(i).to==to) {
+			if(node.edges.get(i).to.equals(to)) {
 				return i;
 			}
 		}
@@ -94,6 +94,7 @@ public class Graph {
 	 */
 	public void setEdgeColor(String from, String to, String color) {
 		Integer index=findEdgeIndex(from,to);
+		System.out.println(index);
 		if(index!=null)nodes.get(from).edges.get(index).color=color;
 	}
 	
