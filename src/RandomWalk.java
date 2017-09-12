@@ -25,12 +25,12 @@ public class RandomWalk {
 	}
 	
 	public void setStartNode(Graph G, String name) {
-		clear();
+		clear(G);
 		this.startNode=G.getNode(name);
 	}
 	
-	public void clear() {
-		this.startNode=null;
+	public void clear(Graph G) {
+		this.startNode=G.getNodeList().get(randomInt(0,G.getNodeList().size()-1));
 		this.nowNode=null;
 		this.path=new StringBuilder();
 		this.stop=false;
