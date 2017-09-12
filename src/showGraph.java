@@ -1,6 +1,5 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 
 public class ShowGraph {
 	
@@ -20,11 +19,12 @@ public class ShowGraph {
 		
 		String dotFilename=Config.tmpPath+"graph.gv";
 		try {
+			Runtime.getRuntime().exec("cmd /c if not exist \""+Config.tmpPath+"\" md \""+Config.tmpPath+"\"").waitFor();
 			FileWriter fw=new FileWriter(dotFilename);
 			BufferedWriter bufw = new BufferedWriter(fw);
 			bufw.write(dotText.toString());
 			bufw.close();
-		}catch (IOException e) {
+		}catch (Exception e) {
 			throw new RuntimeException("Failed to open file");
 		}
 		
@@ -35,7 +35,6 @@ public class ShowGraph {
 		Runtime rt=Runtime.getRuntime();
 		
 		try {
-			rt.exec("cmd /c if not exist tmp md tmp");
 			String[] args= {Config.dotForWindows,filename,"-Tpng","-o",Config.tmpPath+"img.png"};
 			Process process = rt.exec(args);
 			process.waitFor();

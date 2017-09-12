@@ -18,5 +18,15 @@ public class Config {
 		}
 		tmpPath=p.getProperty("tmpPath");
 		dotForWindows=p.getProperty("dotForWindows");
+		
+		prepare();
+	}
+	
+	private static void prepare() {
+		try {
+			Runtime.getRuntime().exec("cmd /c if not exist \""+tmpPath+"\" md \""+tmpPath+"\"").waitFor();
+		}catch(Exception e) {
+			throw new RuntimeException("Failed to create tmp folder.");
+		}
 	}
 }
