@@ -67,7 +67,7 @@ public class NewJFrame extends JFrame {
 		Open.setBounds(38, 137, 113, 27);
 		panel.add(Open);
 		
-		JButton QueryBridgeWords = new JButton("QueryBridgeWords");
+		JButton QueryBridgeWords = new JButton("BridgeWords");
 		QueryBridgeWords.setBounds(38, 177, 113, 27);
 		panel.add(QueryBridgeWords);
 		
@@ -159,7 +159,8 @@ public class NewJFrame extends JFrame {
 	        JFileChooser jfc=new JFileChooser();  
 	        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );  
 	        jfc.showDialog(new JLabel(), "Ñ¡Ôñ");  
-	        File file=jfc.getSelectedFile();   
+	        File file=jfc.getSelectedFile();  
+	        if (file == null) return;
 	        filename =  file.getAbsolutePath();
 	        System.out.println(filename);
 	        WordGraph = MyFile.createDirectedGraph(filename);
@@ -179,21 +180,23 @@ public class NewJFrame extends JFrame {
 			word2 = Word2.getText();
 			S = querry.queryBridgeWords(WordGraph,word1,word2);
 			if (S.equals("1")){
-				JOptionPane.showMessageDialog(null,"The first word is not exist","Error",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(contentPane,"The first word is not exist","Error",JOptionPane.ERROR_MESSAGE);
 			}
 			else if (S.equals("2")){
-				JOptionPane.showMessageDialog(null,"The second word is not exist","Error",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(contentPane,"The second word is not exist","Error",JOptionPane.ERROR_MESSAGE);
 			}
 			else if (S.equals("3")){
-				JOptionPane.showMessageDialog(null,"The both words are not exist","Error",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(contentPane,"The both words are not exist","Error",JOptionPane.ERROR_MESSAGE);
 			}
 			else if (S.equals("0")){
-				JOptionPane.showMessageDialog(null,"There is no BridgeWords","Sorry",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(contentPane,"There is no BridgeWords","Sorry",JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				WordGraph.setNodeColor(word1, "blue");
 				WordGraph.setNodeColor(word2, "blue");
 				String[] BridgeWords = S.split(" ");
+				String IsOrAre = " are: ";
+				if (BridgeWords.length == 1) IsOrAre = " is: ";
 				for (String tempString : BridgeWords){
 					WordGraph.setNodeColor(tempString, "green");
 					WordGraph.setEdgeColor(word1,tempString, "green");
@@ -201,8 +204,7 @@ public class NewJFrame extends JFrame {
 				}
 				ShowGraph.showDirectedGraph(WordGraph);
 				flush();
-				JOptionPane.showMessageDialog(null,S,"BridgeWords:",JOptionPane.PLAIN_MESSAGE);
-			
+				OutText.setText("The bridge words from "+word1+" "+word2+IsOrAre+S );
 			}
 		}
 		
@@ -222,7 +224,7 @@ public class NewJFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			String text = InText.getText();
 	        String newText = GenerateNewText.generateNewText(WordGraph, text);
-	        OutText.setText(newText);
+	        OutText.setText("The New Text is:"+newText);
 		}
 	}
 	
