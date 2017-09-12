@@ -7,12 +7,16 @@ public class ShowGraph {
 		StringBuilder dotText=new StringBuilder();
 		dotText.append(String.format("digraph G{"+newLine));
 		for(Node node:G.getNodeList()) {
-			dotText.append(String.format("%s[color=%s];%n",node.name,node.color));
+			dotText.append(node.name);
+			if(!node.color.equals("black"))dotText.append(String.format(" [style=filled, fillcolor=%s]",node.color));
+			dotText.append(";"+newLine);
 		}
 		dotText.append(newLine);
 		for(Node node:G.getNodeList()) {
 			for(Edge edge:node.edges) {
-				dotText.append(String.format("%s->%s[label=%d, color=%s];%n", edge.from,edge.to,edge.weight,edge.color));
+				dotText.append(String.format("%s->%s[label=%d]", edge.from,edge.to,edge.weight));
+				if(!edge.color.equals("black"))dotText.append(String.format("[style=bold, color=%s]",edge.color));
+				dotText.append(";"+newLine);
 			}
 		}
 		dotText.append("}"+newLine);

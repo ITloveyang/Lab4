@@ -8,6 +8,9 @@ public class Testbench {
 		G.addEdge("A", "E");
 		G.addEdge("D", "C");
 		G.addEdge("C", "A");
+		G.setNodeColor("A", "greenyellow");
+		G.setNodeColor("B", "greenyellow");
+		G.setEdgeColor("A", "B", "dodgerblue");
 		ShowGraph.showDirectedGraph(G);
 		RandomWalk rw=new RandomWalk(G,"A");
 		while(rw.hasNext()) {
