@@ -94,7 +94,6 @@ public class Graph {
 	 */
 	public void setEdgeColor(String from, String to, String color) {
 		Integer index=findEdgeIndex(from,to);
-		System.out.println(index);
 		if(index!=null)nodes.get(from).edges.get(index).color=color;
 	}
 	

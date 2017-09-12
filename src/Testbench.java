@@ -12,7 +12,7 @@ public class Testbench {
 		G.setNodeColor("B", "greenyellow");
 		G.setEdgeColor("A", "B", "dodgerblue");
 		ShowGraph.showDirectedGraph(G);
-		RandomWalk rw=new RandomWalk(G,"A");
+		RandomWalk rw=new RandomWalk(G);
 		while(rw.hasNext()) {
 			System.out.println(rw.randomWalk(G));
 		}

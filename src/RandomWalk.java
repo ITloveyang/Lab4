@@ -16,8 +16,12 @@ public class RandomWalk {
 		this.eSet=new HashSet<>();
 	}
 	
+	/**
+	 * random select a start node.
+	 * @param G
+	 */
 	public RandomWalk(Graph G) {
-		this(G,null);
+		this(G,G.getNodeList().get(randomInt(0,G.getNodeList().size()-1)).name);
 	}
 	
 	public void setStartNode(Graph G, String name) {
@@ -33,9 +37,9 @@ public class RandomWalk {
 		this.eSet.clear();
 	}
 	
-	private int randomInt(int l,int r) {
-		if(r<=0)return 0;
-		return new Random().nextInt(r+1)%(r-l+1)+l;
+	private static int randomInt(int l,int r) {
+		if(r<=0 || l>r)return 0;
+		return new Random().nextInt(((r+1+r-l)/(r-l+1))*(r-l+1))%(r-l+1)+l;
 	}
 	
 	private Node getNextNode(Graph G) {
