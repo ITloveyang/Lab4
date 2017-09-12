@@ -4,6 +4,7 @@ public class Testbench {
 		Graph G = new Graph();
 		G.addEdge("A", "B");
 		G.addEdge("A", "C");
+		G.addEdge("A", "C");
 		G.addEdge("A", "D");
 		G.addEdge("A", "E");
 		G.addEdge("D", "C");
@@ -12,9 +13,10 @@ public class Testbench {
 		G.setNodeColor("B", "greenyellow");
 		G.setEdgeColor("A", "B", "dodgerblue");
 		ShowGraph.showDirectedGraph(G);
-		RandomWalk rw=new RandomWalk(G);
-		while(rw.hasNext()) {
-			System.out.println(rw.randomWalk(G));
-		}
+//		RandomWalk rw=new RandomWalk(G);
+//		while(rw.hasNext()) {
+//			System.out.println(rw.randomWalk(G));
+//		}
+		System.out.println(ShortestPath.calcShortestPath(G, "A","C"));
 	}
 }
