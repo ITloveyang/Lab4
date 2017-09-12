@@ -22,7 +22,11 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import java.awt.Window.Type;
+import java.awt.Color;
+import java.awt.Font;
 
 public class NewJFrame extends JFrame {
 	String filename;
@@ -30,89 +34,110 @@ public class NewJFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField Word1;
 	private JTextField Word2;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextArea InText;
+	private JTextArea OutText;
 	JLabel label = new JLabel("");
 	public NewJFrame() {
 		try{
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 			}catch (Exception e){e.printStackTrace();}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 756, 442);
+		setBounds(100, 100, 986, 662);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 181, 377);
+		panel.setBounds(5, 0, 181, 605);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		Word1 = new JTextField();
-		Word1.setBounds(85, 13, 86, 24);
+		Word1.setBounds(81, 30, 86, 24);
 		panel.add(Word1);
 		Word1.setColumns(10);
 		
 		Word2 = new JTextField();
-		Word2.setBounds(85, 50, 86, 24);
+		Word2.setBounds(81, 70, 86, 24);
 		panel.add(Word2);
 		Word2.setColumns(10);
 		
 		JButton Open = new JButton("OpenFile");
-		Open.setBounds(14, 137, 113, 27);
+		Open.setBounds(38, 137, 113, 27);
 		panel.add(Open);
 		
 		JButton QueryBridgeWords = new JButton("QueryBridgeWords");
-		QueryBridgeWords.setBounds(14, 177, 113, 27);
+		QueryBridgeWords.setBounds(38, 177, 113, 27);
 		panel.add(QueryBridgeWords);
 		
 		JButton Show = new JButton("ShowGraph");
-		Show.setBounds(14, 217, 113, 27);
+		Show.setBounds(38, 217, 113, 27);
 		panel.add(Show);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(14, 257, 113, 27);
-		panel.add(btnNewButton_3);
+		JButton NewText = new JButton("NewText");
+		NewText.setBounds(38, 257, 113, 27);
+		panel.add(NewText);
 		
 		JButton btnNewButton_4 = new JButton("New button");
-		btnNewButton_4.setBounds(14, 297, 113, 27);
+		btnNewButton_4.setBounds(38, 297, 113, 27);
 		panel.add(btnNewButton_4);
 		
 		JLabel Label1 = new JLabel("Word1");
-		Label1.setBounds(24, 16, 47, 18);
+		Label1.setFont(new Font("Cambria", Font.PLAIN, 18));
+		Label1.setBounds(14, 29, 66, 23);
 		panel.add(Label1);
 		
 		JLabel Label2 = new JLabel("Word2");
-		Label2.setBounds(24, 53, 47, 18);
+		Label2.setFont(new Font("Cambria", Font.PLAIN, 18));
+		Label2.setBounds(14, 70, 66, 24);
 		panel.add(Label2);
 		
 		JButton button = new JButton("New button");
-		button.setBounds(14, 337, 113, 27);
+		button.setBounds(38, 335, 113, 27);
 		panel.add(button);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(200, 13, 365, 64);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		InText = new JTextArea();
+		InText.setBounds(200, 30, 753, 64);
+		contentPane.add(InText);
+		InText.setColumns(10);
 		
 		JLabel lblShowPlace = new JLabel("Show Place");
+		lblShowPlace.setFont(new Font("Cambria", Font.PLAIN, 18));
 		lblShowPlace.setHorizontalAlignment(SwingConstants.CENTER);
-		lblShowPlace.setBounds(579, 13, 120, 18);
+		lblShowPlace.setBounds(716, 107, 237, 29);
 		contentPane.add(lblShowPlace);
 		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setBounds(579, 44, 120, 338);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(200, 90, 365, 292);
+		scrollPane.setBounds(200, 136, 501, 469);
 		contentPane.add(scrollPane);
+		label.setBackground(Color.WHITE);
 		
 		label.setHorizontalAlignment(JLabel.CENTER);
 		scrollPane.setViewportView(label);
+		
+		JLabel lblInputText = new JLabel("Input Text");
+		lblInputText.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblInputText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInputText.setBounds(200, 0, 753, 27);
+		contentPane.add(lblInputText);
+		
+		JLabel lblPicture = new JLabel("Picture");
+		lblPicture.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblPicture.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPicture.setBounds(200, 109, 502, 27);
+		contentPane.add(lblPicture);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(716, 136, 237, 470);
+		contentPane.add(scrollPane_1);
+		
+		OutText = new JTextArea();
+		scrollPane_1.setViewportView(OutText);
+		OutText.setEditable(false);
+		OutText.setColumns(10);
+		OutText.setLineWrap(true);
+		
 		
 		OpenAction openAction = new OpenAction();
 		Open.addActionListener(openAction);
@@ -122,6 +147,9 @@ public class NewJFrame extends JFrame {
 		
 		showGraphAction ShowGraph = new showGraphAction();
 		Show.addActionListener(ShowGraph);
+		
+		generateNewTextAction GenerateNewTextAction = new generateNewTextAction();
+		NewText.addActionListener(GenerateNewTextAction);
 	}
 	private class OpenAction implements ActionListener
 	{
@@ -135,8 +163,8 @@ public class NewJFrame extends JFrame {
 	        filename =  file.getAbsolutePath();
 	        System.out.println(filename);
 	        WordGraph = MyFile.createDirectedGraph(filename);
-	        if (WordGraph == null)
-	        	System.out.println(0);
+	        ShowGraph.showDirectedGraph(WordGraph);
+	        flush();
 		}
 	}
 	
@@ -179,6 +207,7 @@ public class NewJFrame extends JFrame {
 		}
 		
 	}
+	
 	private class showGraphAction implements ActionListener
 	{
 
@@ -188,6 +217,15 @@ public class NewJFrame extends JFrame {
 	        flush();
 		}
 	}
+	
+	private class generateNewTextAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			String text = InText.getText();
+	        String newText = GenerateNewText.generateNewText(WordGraph, text);
+	        OutText.setText(newText);
+		}
+	}
+	
 	void flush(){
 		try {
 			ImageIcon image = new ImageIcon(ImageIO.read(new File("tmp/img.png")));

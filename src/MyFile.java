@@ -34,7 +34,6 @@ public class MyFile {
 						tempchar = (char)tempint;
 						
 					}
-					
 					node.add(tempstring);
 				}
 			}
