@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class GenerateNewText {
 	static Graph tempGraph;
@@ -15,27 +16,33 @@ public class GenerateNewText {
 				else Ans = Ans + " " + nowString;
 				continue;
 			}
-			Node node1 = wordGraph.getNode(lastString);
-			Node node2 = wordGraph.getNode(nowString);
+			Node node1 = wordGraph.getNode(lastString.toLowerCase());
+			Node node2 = wordGraph.getNode(nowString.toLowerCase());
 			if (node1 == null && node2 == null) {
 				if (Ans.equals("")) Ans = Ans+nowString;
 				else Ans = Ans + " " + nowString;
 				lastString = nowString;
 				continue;
 			}
-			int flag = 1;
+			String tempString = "";
 			for(Edge edge1:node1.edges) {
 				String tempans = edge1.to;
 				Node tempnode = wordGraph.getNode(tempans);
 				for(Edge edge2:tempnode.edges){
 					if (edge2.to.equals(nowString)){
-						if (nowString.equals(lastString)&&nowString.equals(tempans)&&edge2.weight < 2)continue;
-						Ans = Ans + " " + tempans;
-						flag = 0;
-						break;
+						if (nowString.toLowerCase().equals(lastString.toLowerCase())&&nowString.toLowerCase().equals(tempans.toLowerCase())&&edge2.weight < 2)continue;
+						if (tempString.equals(""))
+							tempString = tempString + tempans;
+						else 
+							tempString = tempString + " " + tempans;
 					}
 				}
-				if (flag == 0) break;
+			}
+			if (!tempString.equals("")){
+				String[] arrayString = tempString.split(" ");
+				int l = arrayString.length;
+				int i = new Random().nextInt(l);
+				Ans = Ans + " " + arrayString[i];
 			}
 			if (Ans.equals("")) Ans = Ans+nowString;
 			else Ans = Ans + " " + nowString;
