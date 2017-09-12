@@ -107,6 +107,18 @@ public class Graph {
 	}
 	
 	/**
+	 * Get a reference of an edge queried by from name to to name.
+	 * @param from String
+	 * @param to String
+	 * @return Edge
+	 */
+	public Edge getEdge(String from, String to) {
+		Integer index=findEdgeIndex(from,to);
+		if(index==null)return null;
+		return nodes.get(from).edges.get(index);
+	}
+	
+	/**
 	 * Get a list of reference of all nodes.
 	 * @return
 	 */
