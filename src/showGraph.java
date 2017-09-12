@@ -2,20 +2,20 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class ShowGraph {
-	
+	static String newLine=System.getProperty("line.separator");
 	public static void showDirectedGraph(Graph G) {
 		StringBuilder dotText=new StringBuilder();
-		dotText.append("digraph G{\n");
+		dotText.append(String.format("digraph G{"+newLine));
 		for(Node node:G.getNodeList()) {
-			dotText.append(String.format("%s[color=%s];\n",node.name,node.color));
+			dotText.append(String.format("%s[color=%s];%n",node.name,node.color));
 		}
-		dotText.append("\n");
+		dotText.append(newLine);
 		for(Node node:G.getNodeList()) {
 			for(Edge edge:node.edges) {
-				dotText.append(String.format("%s->%s[label=%d, color=%s];\n", edge.from,edge.to,edge.weight,edge.color));
+				dotText.append(String.format("%s->%s[label=%d, color=%s];%n", edge.from,edge.to,edge.weight,edge.color));
 			}
 		}
-		dotText.append("}\n");
+		dotText.append("}"+newLine);
 		
 		String dotFilename=Config.tmpPath+"graph.gv";
 		try {

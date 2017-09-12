@@ -3,13 +3,14 @@ import java.util.Random;
 import java.util.Set;
 
 public class RandomWalk {
-	private Node nowNode;
+	private Node nowNode,startNode;
 	private StringBuilder path;
 	private boolean stop;
 	private Set<String> eSet;
 	
 	public RandomWalk(Graph G, String name) {
-		this.nowNode=G.getNode(name);
+		this.startNode=G.getNode(name);
+		this.nowNode=null;
 		this.path=new StringBuilder();
 		this.stop=false;
 		this.eSet=new HashSet<>();
@@ -21,23 +22,28 @@ public class RandomWalk {
 	
 	public void setStartNode(Graph G, String name) {
 		clear();
-		this.nowNode=G.getNode(name);
-		this.stop=false;
+		this.startNode=G.getNode(name);
 	}
 	
 	public void clear() {
+		this.startNode=null;
 		this.nowNode=null;
 		this.path=new StringBuilder();
-		this.stop=false;	
+		this.stop=false;
 		this.eSet.clear();
 	}
 	
 	private int randomInt(int l,int r) {
-		return new Random().nextInt(r)%(r-l+1)+l;
+		if(r<=0)return 0;
+		return new Random().nextInt(r+1)%(r-l+1)+l;
 	}
 	
-	private Node getNextNodeRef(Graph G) {
-		if (nowNode==null || stop)return null;
+	private Node getNextNode(Graph G) {
+		if (startNode==null || stop)return null;
+		if (nowNode==null) {
+			nowNode=startNode;
+			return nowNode;
+		}
 		if (nowNode.edges.size()<=0) {
 			stop=true;
 			return null;
@@ -56,11 +62,11 @@ public class RandomWalk {
 	}
 	
 	public boolean hasNext() {
-		return !(stop || nowNode.edges.size()<=0);
+		return !stop && ((startNode!=null && nowNode==null) || (nowNode!=null && nowNode.edges.size()>0));
 	}
 	
-	public String nextNode(Graph G) {
-		Node node = getNextNodeRef(G);
+	public String randomWalk(Graph G) {
+		Node node = getNextNode(G);
 		if(node==null)return "";
 		else return node.name;
 	}
