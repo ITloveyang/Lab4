@@ -369,6 +369,7 @@ public class NewJFrame extends JFrame {
 				}
 				++i;
 			}
+			ShortestPathString += String.format("PathLength : %d%n",length);
 			OutText.setText(ShortestPathString);
 			ShowGraph.showDirectedGraph(WordGraph);
 	        flush();
