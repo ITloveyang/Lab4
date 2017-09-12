@@ -40,6 +40,7 @@ public class NewJFrame extends JFrame {
 	private JTextField Word2;
 	private JTextArea InText;
 	private JTextArea OutText;
+	List<String> shortestPath;
 	String[] color = {"green","red","midnightblue","aqua","green4","red4","cyan","darkslateblue"};
 	RandomWalk randomWalk;
 	String LastNode,NowNode;
@@ -53,6 +54,7 @@ public class NewJFrame extends JFrame {
 	JButton NewText = new JButton("NewText");
 	JButton BRandomWalk = new JButton("BeginRandom");
 	JButton ShortPath = new JButton("ShortestPath");
+	JButton ShowCertainPath = new JButton("ShowCertainPath");
 	JComboBox<String> comboBoxFr = new JComboBox<String>();
 	JComboBox<String> comboBoxTo = new JComboBox<String>();
 	JComboBox<String> comboBoxNo = new JComboBox<String>();
@@ -108,6 +110,7 @@ public class NewJFrame extends JFrame {
     	NewText.setEnabled(false);
     	BRandomWalk.setEnabled(false);
     	ShortPath.setEnabled(false);
+    	ShowCertainPath.setEnabled(false);
 		
 		JLabel Label1 = new JLabel("Word1");
 		Label1.setFont(new Font("Cambria", Font.PLAIN, 18));
@@ -129,7 +132,7 @@ public class NewJFrame extends JFrame {
 		comboBoxTo.setBounds(55, 416, 112, 24);
 		panel.add(comboBoxTo);
 		
-		comboBoxNo.setBounds(55, 453, 112, 24);
+		comboBoxNo.setBounds(55, 495, 112, 24);
 		panel.add(comboBoxNo);
 		
 		JLabel lblF = new JLabel("Fr");
@@ -144,8 +147,12 @@ public class NewJFrame extends JFrame {
 		
 		JLabel lblNo = new JLabel("No");
 		lblNo.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblNo.setBounds(14, 453, 39, 23);
+		lblNo.setBounds(14, 495, 39, 23);
 		panel.add(lblNo);
+		
+		
+		ShowCertainPath.setBounds(14, 453, 153, 27);
+		panel.add(ShowCertainPath);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(200, 32, 1311, 943);
@@ -209,6 +216,9 @@ public class NewJFrame extends JFrame {
 		shortPathAction ShortPathAction  = new shortPathAction();
 		ShortPath.addActionListener(ShortPathAction);
 		
+		showCertainPathAction ShowCertainPathAction  = new showCertainPathAction();
+		ShowCertainPath.addActionListener(ShowCertainPathAction);
+		
 	}
 	private class OpenAction implements ActionListener
 	{
@@ -231,6 +241,8 @@ public class NewJFrame extends JFrame {
 		    	NewText.setEnabled(false);
 		    	BRandomWalk.setEnabled(false);
 		    	ShortPath.setEnabled(false);
+		    	ShortPath.setEnabled(false);
+		    	ShowCertainPath.setEnabled(false);
 		    	Vector <String> tempVector = null;
 		    	comboBoxFr.removeAllItems();
 				comboBoxTo.removeAllItems();
@@ -242,6 +254,7 @@ public class NewJFrame extends JFrame {
 	    	NewText.setEnabled(true);
 	    	BRandomWalk.setEnabled(true);
 	    	ShortPath.setEnabled(true);
+	    	randomWalk = new RandomWalk(WordGraph);
 	    	getNewString(WordGraph.getNodeList());
 	        ShowGraph.showDirectedGraph(WordGraph);
 	        flush();
@@ -316,7 +329,7 @@ public class NewJFrame extends JFrame {
 			OutText.setText(RandomPath);
 			ShowGraph.showDirectedGraph(WordGraph);
 			CRandomWalk.setEnabled(true);
-			flushRandomWalk();
+			flushOnly();
 		}
 	}
 	private class continueRandomWalkAction implements ActionListener
@@ -327,6 +340,7 @@ public class NewJFrame extends JFrame {
 			NowNode = randomWalk.randomWalk(WordGraph);
 			if (NowNode.equals("")){
 				JOptionPane.showMessageDialog(contentPane,"There is no edge or the same edge in path!","Sorry",JOptionPane.ERROR_MESSAGE);
+				flush();
 			}
 			else {
 				RandomPath += "->" + NowNode;
@@ -335,7 +349,7 @@ public class NewJFrame extends JFrame {
 				LastNode = NowNode;
 				OutText.setText(RandomPath);
 				ShowGraph.showDirectedGraph(WordGraph);
-				flushRandomWalk();
+				flushOnly();
 			}
 		}
 	}
@@ -352,31 +366,130 @@ public class NewJFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			WordGraph.clearColor();
-			List<String> shortestPath = ShortestPath.calcShortestPath(WordGraph,comboBoxFr.getSelectedItem().toString(),comboBoxTo.getSelectedItem().toString());
-			int i = 0;
-			int length = 0;
-			for (String Path : shortestPath){
-				ShortestPathString += String.format("Path%d :%n%s%n",i,Path);
+			ShortestPathString = "";
+			comboBoxNo.removeAllItems();
+			if (comboBoxTo.getSelectedItem().toString().equals("All..")){
+				List<Node> tempnode = WordGraph.getNodeList();
+				int fi = 0;
+				for (Node node : tempnode){
+					ShortestPathString += String.format("%nDestination%d :  %s%n",fi,node.name);
+					shortestPath = ShortestPath.calcShortestPath(WordGraph,comboBoxFr.getSelectedItem().toString(),node.name);
+					if (shortestPath.size() == 0) {
+						ShortestPathString += String.format("No Way! %n");
+						continue;
+					}
+					int i = 0;
+					int length = 0;
+					for (String Path : shortestPath){
+						ShortestPathString += String.format("Path%d :%n%s%n",i,Path);
+						String[] tempNode = Path.split("->");
+						for (int j = 0 ; j < tempNode.length ; j++){
+							if (j+1<tempNode.length){
+								//WordGraph.setEdgeColor(tempNode[j], tempNode[j+1],color[i%8]);
+								if (i==0){
+									length += WordGraph.getEdge(tempNode[j],tempNode[j+1]).weight;
+								}
+							}
+							//WordGraph.setNodeColor(tempNode[j],color[i%8]);
+						}
+						++i;
+					}
+					fi++;
+					ShortestPathString += String.format("PathLength : %d%n",length);
+					OutText.setText(ShortestPathString);
+				
+				}
+				ShowGraph.showDirectedGraph(WordGraph);
+		        flush();
+			}
+			else {
+				shortestPath = ShortestPath.calcShortestPath(WordGraph,comboBoxFr.getSelectedItem().toString(),comboBoxTo.getSelectedItem().toString());
+				Integer i = 0;
+				int length = 0;
+				if (shortestPath.size() == 0) {
+						ShortestPathString += String.format("No Way! %n");
+				}
+				for (String Path : shortestPath){
+					ShortestPathString += String.format("Path%d :%n%s%n",i,Path);
+					String[] tempNode = Path.split("->");
+					for (int j = 0 ; j < tempNode.length ; j++){
+						if (j+1<tempNode.length){
+							WordGraph.setEdgeColor(tempNode[j], tempNode[j+1],color[i%8]);
+							if (i==0){
+								length += WordGraph.getEdge(tempNode[j],tempNode[j+1]).weight;
+							}
+						}
+						WordGraph.setNodeColor(tempNode[j],color[i%8]);
+					}
+					comboBoxNo.addItem(i.toString());
+					++i;
+				}
+				if (shortestPath.size() > 0) {
+					ShortestPathString += String.format("PathLength : %d%n",length);
+					ShowCertainPath.setEnabled(true);
+					comboBoxNo.addItem("All..");
+				}
+				OutText.setText(ShortestPathString);
+				ShowGraph.showDirectedGraph(WordGraph);
+		        flushOnly();
+			}
+		}
+	}
+	private class showCertainPathAction implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			WordGraph.clearColor();
+			ShortestPathString = "";
+			if (comboBoxNo.getSelectedItem().equals("All..")){
+				Integer i = 0;
+				int length = 0;
+				for (String Path : shortestPath){
+					ShortestPathString += String.format("Path%d :%n%s%n",i,Path);
+					String[] tempNode = Path.split("->");
+					for (int j = 0 ; j < tempNode.length ; j++){
+						if (j+1<tempNode.length){
+							WordGraph.setEdgeColor(tempNode[j], tempNode[j+1],color[i%8]);
+							if (i==0){
+								length += WordGraph.getEdge(tempNode[j],tempNode[j+1]).weight;
+							}
+						}
+						WordGraph.setNodeColor(tempNode[j],color[i%8]);
+					}
+					++i;
+				}
+				if (shortestPath.size() > 0) {
+					ShortestPathString += String.format("PathLength : %d%n",length);
+				}
+				OutText.setText(ShortestPathString);
+			}
+			else {
+				String temps = comboBoxNo.getSelectedItem().toString();
+				System.out.println(temps);
+				Integer i = Integer.valueOf(temps);
+				String Path = shortestPath.get(i);
+				ShortestPathString += String.format("Path :%n%s%n",Path);
+				int length = 0;
 				String[] tempNode = Path.split("->");
 				for (int j = 0 ; j < tempNode.length ; j++){
 					if (j+1<tempNode.length){
 						WordGraph.setEdgeColor(tempNode[j], tempNode[j+1],color[i%8]);
-						if (i==0){
-							//length += WordGraph.getedge().weight;
-						}
+						length += WordGraph.getEdge(tempNode[j],tempNode[j+1]).weight;
 					}
 					WordGraph.setNodeColor(tempNode[j],color[i%8]);
 				}
 				++i;
+				ShortestPathString += String.format("PathLength : %d%n",length);
+				OutText.setText(ShortestPathString);
 			}
-			ShortestPathString += String.format("PathLength : %d%n",length);
-			OutText.setText(ShortestPathString);
 			ShowGraph.showDirectedGraph(WordGraph);
-	        flush();
+	        flushOnly();
 		}
 	}
 	void flush(){
 		CRandomWalk.setEnabled(false);
+		comboBoxNo.removeAllItems();
+		ShowCertainPath.setEnabled(false);
 		try {
 			ImageIcon image = new ImageIcon(ImageIO.read(new File("tmp/img.png")));
 			//image.setImage(image.getImage().getScaledInstance(label.getWidth(), label.getHeight(),Image.SCALE_DEFAULT ));
@@ -386,7 +499,7 @@ public class NewJFrame extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	void flushRandomWalk(){
+	void flushOnly(){
 		try {
 			ImageIcon image = new ImageIcon(ImageIO.read(new File("tmp/img.png")));
 			//image.setImage(image.getImage().getScaledInstance(label.getWidth(), label.getHeight(),Image.SCALE_DEFAULT ));
