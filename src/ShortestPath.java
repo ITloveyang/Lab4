@@ -71,4 +71,10 @@ public class ShortestPath {
 		return paths;
 	}
 	
+	public static Integer calcPathDistance(Graph G,String word1,String word2) {
+		spfa(G,word1);
+		if(dis.get(word2).equals(INF))return -1;
+		else return dis.get(word2);
+	}
+	
 }
