@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Node class.
+ * <p>each node has its name,color and a list of out edges.
+ * @author HanYue
+ *
+ */
 public class Node {
 	public String name;
 	public String color;

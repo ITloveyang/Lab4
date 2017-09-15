@@ -1,4 +1,9 @@
-
+/**
+ * Edge class for direct graph.
+ * <p>contains from,to,weight and color properties.
+ * @author HanYue
+ *
+ */
 public class Edge {
 	public String from,to;
 	public int weight;
