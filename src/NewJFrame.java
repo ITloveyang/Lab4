@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -40,6 +42,7 @@ public class NewJFrame extends JFrame {
 	private JTextField Word2;
 	private JTextArea InText;
 	private JTextArea OutText;
+	Timer t = new Timer();
 	List<String> shortestPath;
 	String[] color = {"green","red","midnightblue","aqua","green4","red4","cyan","darkslateblue"};
 	RandomWalk randomWalk;
@@ -55,6 +58,8 @@ public class NewJFrame extends JFrame {
 	JButton BRandomWalk = new JButton("BeginRandom");
 	JButton ShortPath = new JButton("ShortestPath");
 	JButton ShowCertainPath = new JButton("ShowCertainPath");
+	JButton StopRandom = new JButton("StopRandom");
+	JButton BeginRandom2 = new JButton("BeginRandom");
 	JComboBox<String> comboBoxFr = new JComboBox<String>();
 	JComboBox<String> comboBoxTo = new JComboBox<String>();
 	JComboBox<String> comboBoxNo = new JComboBox<String>();
@@ -71,24 +76,24 @@ public class NewJFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 0, 181, 605);
+		panel.setBounds(5, 35, 181, 765);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		Word1 = new JTextField();
-		Word1.setBounds(81, 253, 86, 24);
+		Word1.setBounds(81, 174, 86, 24);
 		panel.add(Word1);
 		Word1.setColumns(10);
 		
 		Word2 = new JTextField();
-		Word2.setBounds(81, 293, 86, 24);
+		Word2.setBounds(81, 214, 86, 24);
 		panel.add(Word2);
 		Word2.setColumns(10);
 				
 		Open.setBounds(14, 13, 153, 27);
 		panel.add(Open);
 				
-		QueryBridgeWords.setBounds(14, 212, 153, 27);
+		QueryBridgeWords.setBounds(14, 133, 153, 27);
 		panel.add(QueryBridgeWords);
 			
 		Show.setBounds(14, 53, 153, 27);
@@ -97,11 +102,11 @@ public class NewJFrame extends JFrame {
 		NewText.setBounds(14, 93, 153, 27);
 		panel.add(NewText);
 		
-		BRandomWalk.setBounds(14, 131, 153, 27);
+		BRandomWalk.setBounds(14, 636, 153, 27);
 		panel.add(BRandomWalk);
 		
 		
-		CRandomWalk.setBounds(14, 172, 153, 27);
+		CRandomWalk.setBounds(14, 677, 153, 27);
 		panel.add(CRandomWalk);
 
         CRandomWalk.setEnabled(false);
@@ -111,48 +116,68 @@ public class NewJFrame extends JFrame {
     	BRandomWalk.setEnabled(false);
     	ShortPath.setEnabled(false);
     	ShowCertainPath.setEnabled(false);
+    	StopRandom.setEnabled(false);
+    	BeginRandom2.setEnabled(false);
 		
 		JLabel Label1 = new JLabel("Word1");
 		Label1.setFont(new Font("Cambria", Font.PLAIN, 18));
-		Label1.setBounds(14, 252, 66, 23);
+		Label1.setBounds(14, 173, 66, 23);
 		panel.add(Label1);
 		
 		JLabel Label2 = new JLabel("Word2");
 		Label2.setFont(new Font("Cambria", Font.PLAIN, 18));
-		Label2.setBounds(14, 293, 66, 24);
+		Label2.setBounds(14, 214, 66, 24);
 		panel.add(Label2);
 		
 		
-		ShortPath.setBounds(14, 339, 153, 27);
+		ShortPath.setBounds(14, 260, 153, 27);
 		panel.add(ShortPath);
 		
-		comboBoxFr.setBounds(55, 379, 112, 24);
+		comboBoxFr.setBounds(55, 300, 112, 24);
 		panel.add(comboBoxFr);
 		
-		comboBoxTo.setBounds(55, 416, 112, 24);
+		comboBoxTo.setBounds(55, 337, 112, 24);
 		panel.add(comboBoxTo);
 		
-		comboBoxNo.setBounds(55, 495, 112, 24);
+		comboBoxNo.setBounds(55, 416, 112, 24);
 		panel.add(comboBoxNo);
 		
 		JLabel lblF = new JLabel("Fr");
 		lblF.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblF.setBounds(14, 379, 39, 23);
+		lblF.setBounds(14, 300, 39, 23);
 		panel.add(lblF);
 		
 		JLabel lblTo = new JLabel("To");
 		lblTo.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblTo.setBounds(14, 416, 39, 23);
+		lblTo.setBounds(14, 337, 39, 23);
 		panel.add(lblTo);
 		
 		JLabel lblNo = new JLabel("No");
 		lblNo.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblNo.setBounds(14, 495, 39, 23);
+		lblNo.setBounds(14, 416, 39, 23);
 		panel.add(lblNo);
 		
 		
-		ShowCertainPath.setBounds(14, 453, 153, 27);
+		ShowCertainPath.setBounds(14, 374, 153, 27);
 		panel.add(ShowCertainPath);
+		
+		
+		BeginRandom2.setBounds(14, 505, 153, 27);
+		panel.add(BeginRandom2);
+		
+		
+		StopRandom.setBounds(14, 545, 153, 27);
+		panel.add(StopRandom);
+		
+		JLabel lblType = new JLabel("Type-1");
+		lblType.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblType.setBounds(14, 468, 66, 24);
+		panel.add(lblType);
+		
+		JLabel lblType_1 = new JLabel("Type-2");
+		lblType_1.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblType_1.setBounds(14, 599, 66, 24);
+		panel.add(lblType_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(200, 32, 1311, 943);
@@ -213,6 +238,12 @@ public class NewJFrame extends JFrame {
 		continueRandomWalkAction ContinueRandomWalkAction = new continueRandomWalkAction();
 		CRandomWalk.addActionListener(ContinueRandomWalkAction);
 		
+		beginRandomWalkAction2 BeginRandomWalkAction2 = new beginRandomWalkAction2();
+		BeginRandom2.addActionListener(BeginRandomWalkAction2);
+		
+		stopRandomWalkAction StopRandomWalkAction = new stopRandomWalkAction();
+		StopRandom.addActionListener(StopRandomWalkAction);
+		
 		shortPathAction ShortPathAction  = new shortPathAction();
 		ShortPath.addActionListener(ShortPathAction);
 		
@@ -243,6 +274,8 @@ public class NewJFrame extends JFrame {
 		    	ShortPath.setEnabled(false);
 		    	ShortPath.setEnabled(false);
 		    	ShowCertainPath.setEnabled(false);
+		    	StopRandom.setEnabled(false);
+		    	BeginRandom2.setEnabled(false);
 		    	Vector <String> tempVector = null;
 		    	comboBoxFr.removeAllItems();
 				comboBoxTo.removeAllItems();
@@ -254,6 +287,7 @@ public class NewJFrame extends JFrame {
 	    	NewText.setEnabled(true);
 	    	BRandomWalk.setEnabled(true);
 	    	ShortPath.setEnabled(true);
+	    	BeginRandom2.setEnabled(true);
 	    	randomWalk = new RandomWalk(WordGraph);
 	    	getNewString(WordGraph.getNodeList());
 	        ShowGraph.showDirectedGraph(WordGraph);
@@ -319,17 +353,62 @@ public class NewJFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			randomWalk.clear(WordGraph);
-			WordGraph.clearColor();
-			RandomPath = "";
-			LastNode = randomWalk.randomWalk(WordGraph);
-			System.out.println(LastNode+"c");
-			RandomPath += LastNode;
-			WordGraph.setNodeColor(LastNode, "greenyellow");
+			beginRandom();
+		}
+	}
+	private class stopRandomWalkAction implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			t.cancel();
+			SetAllTrue();
+			StopRandom.setEnabled(false);
+	    	BeginRandom2.setEnabled(true);
+		}
+	}
+	private class beginRandomWalkAction2 implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			beginRandom();
+			SetAllFalse();
+			StopRandom.setEnabled(true);
+	    	BeginRandom2.setEnabled(false);
+			t = new Timer();
+	    	t.schedule(new RandomTask(), 1000, 1000);
+		}
+	}
+	void beginRandom(){
+		randomWalk.clear(WordGraph);
+		WordGraph.clearColor();
+		RandomPath = "";
+		LastNode = randomWalk.randomWalk(WordGraph);
+		System.out.println(LastNode+"c");
+		RandomPath += LastNode;
+		WordGraph.setNodeColor(LastNode, "greenyellow");
+		OutText.setText(RandomPath);
+		ShowGraph.showDirectedGraph(WordGraph);
+		CRandomWalk.setEnabled(true);
+		flushOnly();
+	}
+	int continueRandom(){
+		NowNode = randomWalk.randomWalk(WordGraph);
+		if (NowNode.equals("")){
+			JOptionPane.showMessageDialog(contentPane,"There is no edge or the same edge in path!","Sorry",JOptionPane.ERROR_MESSAGE);
+			flush();
+			return 0;
+		}
+		else {
+			RandomPath += "->" + NowNode;
+			WordGraph.setNodeColor(NowNode, "greenyellow");
+			WordGraph.setEdgeColor(LastNode,NowNode, "greenyellow");
+			LastNode = NowNode;
 			OutText.setText(RandomPath);
 			ShowGraph.showDirectedGraph(WordGraph);
-			CRandomWalk.setEnabled(true);
 			flushOnly();
+			return 1;
 		}
 	}
 	private class continueRandomWalkAction implements ActionListener
@@ -337,20 +416,7 @@ public class NewJFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			NowNode = randomWalk.randomWalk(WordGraph);
-			if (NowNode.equals("")){
-				JOptionPane.showMessageDialog(contentPane,"There is no edge or the same edge in path!","Sorry",JOptionPane.ERROR_MESSAGE);
-				flush();
-			}
-			else {
-				RandomPath += "->" + NowNode;
-				WordGraph.setNodeColor(NowNode, "greenyellow");
-				WordGraph.setEdgeColor(LastNode,NowNode, "greenyellow");
-				LastNode = NowNode;
-				OutText.setText(RandomPath);
-				ShowGraph.showDirectedGraph(WordGraph);
-				flushOnly();
-			}
+			continueRandom();
 		}
 	}
 	private class generateNewTextAction implements ActionListener{
@@ -499,6 +565,24 @@ public class NewJFrame extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	void  SetAllFalse(){
+		CRandomWalk.setEnabled(false);
+        QueryBridgeWords.setEnabled(false);
+    	Show.setEnabled(false);
+    	NewText.setEnabled(false);
+    	BRandomWalk.setEnabled(false);
+    	ShortPath.setEnabled(false);
+    	ShowCertainPath.setEnabled(false);
+    	Open.setEnabled(false);
+	}
+	void SetAllTrue(){
+        QueryBridgeWords.setEnabled(true);
+    	Show.setEnabled(true);
+    	NewText.setEnabled(true);
+    	BRandomWalk.setEnabled(true);
+    	ShortPath.setEnabled(true);
+    	Open.setEnabled(true);
+	}
 	void flushOnly(){
 		try {
 			ImageIcon image = new ImageIcon(ImageIO.read(new File("tmp/img.png")));
@@ -517,5 +601,18 @@ public class NewJFrame extends JFrame {
 			comboBoxTo.addItem(node.name);
 		}
 		comboBoxTo.addItem("All..");
+	}
+	class RandomTask extends TimerTask{
+
+	    @Override
+	    public void run() {
+	    	int tmp = continueRandom();
+	    	if (tmp == 0){
+	    		t.cancel();
+				SetAllTrue();
+				StopRandom.setEnabled(false);
+		    	BeginRandom2.setEnabled(true);
+	    	}
+	    }
 	}
 }
