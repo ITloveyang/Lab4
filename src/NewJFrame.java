@@ -1,28 +1,24 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Image;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.imageio.ImageIO;
-import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -30,7 +26,6 @@ import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import java.awt.Window.Type;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -60,6 +55,7 @@ public class NewJFrame extends JFrame {
 	JButton ShowCertainPath = new JButton("ShowCertainPath");
 	JButton StopRandom = new JButton("StopRandom");
 	JButton BeginRandom2 = new JButton("BeginRandom");
+	JButton Save = new JButton("SaveFile");
 	JComboBox<String> comboBoxFr = new JComboBox<String>();
 	JComboBox<String> comboBoxTo = new JComboBox<String>();
 	JComboBox<String> comboBoxNo = new JComboBox<String>();
@@ -117,6 +113,7 @@ public class NewJFrame extends JFrame {
     	ShortPath.setEnabled(false);
     	ShowCertainPath.setEnabled(false);
     	StopRandom.setEnabled(false);
+    	Save.setEnabled(false);
     	BeginRandom2.setEnabled(false);
 		
 		JLabel Label1 = new JLabel("Word1");
@@ -178,6 +175,10 @@ public class NewJFrame extends JFrame {
 		lblType_1.setFont(new Font("Cambria", Font.PLAIN, 18));
 		lblType_1.setBounds(14, 599, 66, 24);
 		panel.add(lblType_1);
+		
+		
+		Save.setBounds(14, 725, 153, 27);
+		panel.add(Save);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(200, 32, 1311, 943);
@@ -250,6 +251,9 @@ public class NewJFrame extends JFrame {
 		showCertainPathAction ShowCertainPathAction  = new showCertainPathAction();
 		ShowCertainPath.addActionListener(ShowCertainPathAction);
 		
+		saveFileAction SaveFileAction  = new saveFileAction();
+		Save.addActionListener(SaveFileAction);
+		
 	}
 	private class OpenAction implements ActionListener
 	{
@@ -265,7 +269,7 @@ public class NewJFrame extends JFrame {
 	        System.out.println(filename);
 	        WordGraph = MyFile.createDirectedGraph(filename);
 	        if (WordGraph == null){
-	        	JOptionPane.showMessageDialog(contentPane,"No text in the file!","Error",JOptionPane.ERROR_MESSAGE);
+	        	JOptionPane.showMessageDialog(null,"No text in the file!","Error",JOptionPane.ERROR_MESSAGE);
 		        CRandomWalk.setEnabled(false);
 		        QueryBridgeWords.setEnabled(false);
 		    	Show.setEnabled(false);
@@ -276,7 +280,7 @@ public class NewJFrame extends JFrame {
 		    	ShowCertainPath.setEnabled(false);
 		    	StopRandom.setEnabled(false);
 		    	BeginRandom2.setEnabled(false);
-		    	Vector <String> tempVector = null;
+		    	Save.setEnabled(false);
 		    	comboBoxFr.removeAllItems();
 				comboBoxTo.removeAllItems();
 	        	return;
@@ -294,7 +298,47 @@ public class NewJFrame extends JFrame {
 	        flush();
 		}
 	}
-	
+	private class saveFileAction implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {  
+			//弹出文件选择框
+			JFileChooser chooser = new JFileChooser();
+			
+			//后缀名过滤器
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "图像文件png", "png");
+			chooser.setFileFilter(filter);
+			
+			//下面的方法将阻塞，直到【用户按下保存按钮且“文件名”文本框不为空】或【用户按下取消按钮】
+			int option = chooser.showSaveDialog(null);
+			if(option==JFileChooser.APPROVE_OPTION){	//假如用户选择了保存
+				File file = chooser.getSelectedFile();
+				String fname = chooser.getName(file);	//从文件名输入框中获取文件名	
+				//假如用户填写的文件名不带我们制定的后缀名，那么我们给它添上后缀
+				if(fname.indexOf(".png")==-1){
+					file=new File(chooser.getCurrentDirectory(),fname+".png");
+				}
+				try {
+					FileOutputStream fos = new FileOutputStream(file);
+					
+					FileInputStream ins = new FileInputStream("tmp/img.png");
+				        byte[] b = new byte[1024];
+				        int n=0;
+				        while((n=ins.read(b))!=-1){
+				        	fos.write(b, 0, n);
+				        }
+				        
+				    ins.close();
+					fos.close();
+					
+				} catch (IOException c) {
+					System.err.println("IO异常");
+					c.printStackTrace();
+				}	
+			}
+		}
+	}
 	private class queryBridgeWordsAction implements ActionListener
 	{	
 		String word1,word2;
@@ -553,6 +597,7 @@ public class NewJFrame extends JFrame {
 		}
 	}
 	void flush(){
+		Save.setEnabled(true);
 		CRandomWalk.setEnabled(false);
 		comboBoxNo.removeAllItems();
 		ShowCertainPath.setEnabled(false);
@@ -584,6 +629,7 @@ public class NewJFrame extends JFrame {
     	Open.setEnabled(true);
 	}
 	void flushOnly(){
+		Save.setEnabled(true);
 		try {
 			ImageIcon image = new ImageIcon(ImageIO.read(new File("tmp/img.png")));
 			//image.setImage(image.getImage().getScaledInstance(label.getWidth(), label.getHeight(),Image.SCALE_DEFAULT ));
@@ -615,4 +661,5 @@ public class NewJFrame extends JFrame {
 	    	}
 	    }
 	}
+	
 }
