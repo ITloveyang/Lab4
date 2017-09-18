@@ -72,37 +72,37 @@ public class NewJFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 35, 181, 765);
+		panel.setBounds(5, 0, 181, 940);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		Word1 = new JTextField();
-		Word1.setBounds(81, 174, 86, 24);
+		Word1.setBounds(81, 276, 86, 24);
 		panel.add(Word1);
 		Word1.setColumns(10);
 		
 		Word2 = new JTextField();
-		Word2.setBounds(81, 214, 86, 24);
+		Word2.setBounds(81, 316, 86, 24);
 		panel.add(Word2);
 		Word2.setColumns(10);
 				
 		Open.setBounds(14, 13, 153, 27);
 		panel.add(Open);
 				
-		QueryBridgeWords.setBounds(14, 133, 153, 27);
+		QueryBridgeWords.setBounds(14, 235, 153, 27);
 		panel.add(QueryBridgeWords);
 			
-		Show.setBounds(14, 53, 153, 27);
+		Show.setBounds(14, 93, 153, 27);
 		panel.add(Show);
 		
-		NewText.setBounds(14, 93, 153, 27);
+		NewText.setBounds(14, 164, 153, 27);
 		panel.add(NewText);
 		
-		BRandomWalk.setBounds(14, 636, 153, 27);
+		BRandomWalk.setBounds(14, 859, 153, 27);
 		panel.add(BRandomWalk);
 		
 		
-		CRandomWalk.setBounds(14, 677, 153, 27);
+		CRandomWalk.setBounds(14, 900, 153, 27);
 		panel.add(CRandomWalk);
 
         CRandomWalk.setEnabled(false);
@@ -118,67 +118,91 @@ public class NewJFrame extends JFrame {
 		
 		JLabel Label1 = new JLabel("Word1");
 		Label1.setFont(new Font("Cambria", Font.PLAIN, 18));
-		Label1.setBounds(14, 173, 66, 23);
+		Label1.setBounds(14, 275, 66, 23);
 		panel.add(Label1);
 		
 		JLabel Label2 = new JLabel("Word2");
 		Label2.setFont(new Font("Cambria", Font.PLAIN, 18));
-		Label2.setBounds(14, 214, 66, 24);
+		Label2.setBounds(14, 316, 66, 24);
 		panel.add(Label2);
 		
 		
-		ShortPath.setBounds(14, 260, 153, 27);
+		ShortPath.setBounds(14, 419, 153, 27);
 		panel.add(ShortPath);
 		
-		comboBoxFr.setBounds(55, 300, 112, 24);
+		comboBoxFr.setBounds(55, 459, 112, 24);
 		panel.add(comboBoxFr);
 		
-		comboBoxTo.setBounds(55, 337, 112, 24);
+		comboBoxTo.setBounds(55, 496, 112, 24);
 		panel.add(comboBoxTo);
 		
-		comboBoxNo.setBounds(55, 416, 112, 24);
+		comboBoxNo.setBounds(55, 575, 112, 24);
 		panel.add(comboBoxNo);
 		
 		JLabel lblF = new JLabel("Fr");
 		lblF.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblF.setBounds(14, 300, 39, 23);
+		lblF.setBounds(14, 459, 39, 23);
 		panel.add(lblF);
 		
 		JLabel lblTo = new JLabel("To");
 		lblTo.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblTo.setBounds(14, 337, 39, 23);
+		lblTo.setBounds(14, 496, 39, 23);
 		panel.add(lblTo);
 		
 		JLabel lblNo = new JLabel("No");
 		lblNo.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblNo.setBounds(14, 416, 39, 23);
+		lblNo.setBounds(14, 575, 39, 23);
 		panel.add(lblNo);
 		
 		
-		ShowCertainPath.setBounds(14, 374, 153, 27);
+		ShowCertainPath.setBounds(14, 533, 153, 27);
 		panel.add(ShowCertainPath);
 		
 		
-		BeginRandom2.setBounds(14, 505, 153, 27);
+		BeginRandom2.setBounds(14, 742, 153, 27);
 		panel.add(BeginRandom2);
 		
 		
-		StopRandom.setBounds(14, 545, 153, 27);
+		StopRandom.setBounds(14, 782, 153, 27);
 		panel.add(StopRandom);
 		
 		JLabel lblType = new JLabel("Type-1");
 		lblType.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblType.setBounds(14, 468, 66, 24);
+		lblType.setBounds(14, 718, 66, 24);
 		panel.add(lblType);
 		
 		JLabel lblType_1 = new JLabel("Type-2");
 		lblType_1.setFont(new Font("Cambria", Font.PLAIN, 18));
-		lblType_1.setBounds(14, 599, 66, 24);
+		lblType_1.setBounds(14, 834, 66, 24);
 		panel.add(lblType_1);
 		
 		
-		Save.setBounds(14, 725, 153, 27);
+		Save.setBounds(14, 53, 153, 27);
 		panel.add(Save);
+		
+		JLabel lblFunction = new JLabel("Function-1");
+		lblFunction.setForeground(Color.GRAY);
+		lblFunction.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblFunction.setBounds(14, 139, 153, 23);
+		panel.add(lblFunction);
+		
+		JLabel lblFunction_1 = new JLabel("Function-2");
+		lblFunction_1.setForeground(Color.GRAY);
+		lblFunction_1.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblFunction_1.setBounds(14, 211, 153, 23);
+		panel.add(lblFunction_1);
+		
+		JLabel lblFunction_2 = new JLabel("Function-3");
+		lblFunction_2.setForeground(Color.GRAY);
+		lblFunction_2.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblFunction_2.setBounds(14, 395, 153, 23);
+		panel.add(lblFunction_2);
+		
+		JLabel lblFunction_3 = new JLabel("Function-4");
+		lblFunction_3.setForeground(Color.GRAY);
+		lblFunction_3.setFont(new Font("Cambria", Font.PLAIN, 18));
+		lblFunction_3.setBounds(14, 694, 153, 23);
+		panel.add(lblFunction_3);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(200, 32, 1311, 943);
@@ -269,7 +293,7 @@ public class NewJFrame extends JFrame {
 	        System.out.println(filename);
 	        WordGraph = MyFile.createDirectedGraph(filename);
 	        if (WordGraph == null){
-	        	JOptionPane.showMessageDialog(null,"No text in the file!","Error",JOptionPane.ERROR_MESSAGE);
+	        	JOptionPane.showMessageDialog(contentPane,"No text in the file!","Error",JOptionPane.ERROR_MESSAGE);
 		        CRandomWalk.setEnabled(false);
 		        QueryBridgeWords.setEnabled(false);
 		    	Show.setEnabled(false);
@@ -661,5 +685,4 @@ public class NewJFrame extends JFrame {
 	    	}
 	    }
 	}
-	
 }
