@@ -32,11 +32,11 @@ public class Config {
 		dotForWindows=p.getProperty("dotForWindows");
 		dotForLinux=p.getProperty("dotForLinux");
 		
-		prepare();
+		//prepare();
 	}
 	
 	/**
-	 * Create temp directory if not existed.
+	 * Create temp directory if not existed(not used now).
 	 */
 	private static void prepare() {
 		try {
