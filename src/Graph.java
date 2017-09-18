@@ -3,12 +3,20 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Directed Colored Graph.
+ * @author HanYue
+ *
+ */
 public class Graph {
+	/**
+	 * @see Node
+	 */
 	private Map<String,Node> nodes = new HashMap<>();
 	
 	/**
-	 * Add a node to the graph with the node name, a node contains a edge list,
-	 * its initial color will be set to "none" 
+	 * Add a node to the graph with the node name.
+	 * <p>Initial color will be set to "none", node name is same as name.  
 	 * @param name String
 	 */
 	public void addNode(String name) {
@@ -41,10 +49,10 @@ public class Graph {
 	}
 	
 	/**
-	 * Add an edge with from and to node name and weight,
-	 * from---weight--->to.
-	 * nodes will be created if it is not existed.
-	 * if the edge has be in the graph, its weight will be add by 1.
+	 * Add an edge with from and to node name with name and weight.
+	 * <p>from---weight--->to.<br>
+	 * nodes will be created if it is not existed.<br>
+	 * if the edge has been in the graph, its weight will increases by 1.
 	 * @param from String
 	 * @param to String
 	 * @param weight int
@@ -100,17 +108,17 @@ public class Graph {
 	/**
 	 * Get a reference of a node by the name.
 	 * @param name String
-	 * @return Node
+	 * @return Node Ref
 	 */
 	public Node getNode(String name) {
 		return nodes.get(name);
 	}
 	
 	/**
-	 * Get a reference of an edge queried by from name to to name.
+	 * Get a reference of an edge by from name to to name.
 	 * @param from String
 	 * @param to String
-	 * @return Edge
+	 * @return Edge Ref
 	 */
 	public Edge getEdge(String from, String to) {
 		Integer index=findEdgeIndex(from,to);
@@ -120,7 +128,7 @@ public class Graph {
 	
 	/**
 	 * Get a list of reference of all nodes.
-	 * @return
+	 * @return List&lt;Node&gt;-ArrayList 
 	 */
 	public List<Node> getNodeList(){
 		List<Node> nodeList=new ArrayList<>();
@@ -136,7 +144,9 @@ public class Graph {
 	}
 	
 	/**
-	 * Set all nodes' and edges'color to none.
+	 * Set all nodes' and edges'color to default.
+	 * @see Node.clearColor()
+	 * @see Edge.clearColor()
 	 */
 	public void clearColor() {
 		if(nodes.isEmpty())return;
