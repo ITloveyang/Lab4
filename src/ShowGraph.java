@@ -3,11 +3,19 @@ import java.io.File;
 import java.io.FileWriter;
 
 
-
+/**
+ * Make dot script for Graph and run graphviz to generate a png image of graph.
+ * @author HanYue
+ *
+ */
 public class ShowGraph {
 	static String newLine=System.getProperty("line.separator");
 	static String osName=System.getProperty("os.name");
-
+	
+	/**
+	 * build dot script for graph G.
+	 * @param G Graph
+	 */
 	public static void showDirectedGraph(Graph G) {
 		StringBuilder dotText=new StringBuilder();
 		dotText.append(String.format("digraph G{"+newLine));
@@ -42,7 +50,11 @@ public class ShowGraph {
 		
 		generateImage(graphFilePath);
 	}
-
+	
+	/**
+	 * run graphviz on different system. 
+	 * @param filename dot script filePath
+	 */
 	private static void generateImage(String filename) {
 		if(osName.startsWith("win")||osName.startsWith("Win")) {
 			generateImageForWindows(filename);
@@ -52,6 +64,10 @@ public class ShowGraph {
 		}
 	}
 	
+	/**
+	 * run graphviz on windows. 
+	 * @param filename filename dot script filePath
+	 */
 	private static void generateImageForWindows(String filename) {
 		Runtime rt=Runtime.getRuntime();
 		try {
@@ -64,7 +80,11 @@ public class ShowGraph {
 		}
 		
 	}
-
+	
+	/**
+	 * run graphviz on unix. 
+	 * @param filename filename dot script filePath
+	 */
 	private static void generateImageForLinux(String filename) {
 		Runtime rt=Runtime.getRuntime();
 		try {
