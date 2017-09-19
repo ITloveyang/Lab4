@@ -5,7 +5,7 @@ public class MyFile {
 	
 	/**
 	 * open the file, read , and create a Graph;
-	 * @param filename
+	 * @param filename String
 	 * @return Graph
 	 */
 	public static Graph createDirectedGraph(String filename){

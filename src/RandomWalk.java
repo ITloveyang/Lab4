@@ -117,7 +117,7 @@ public class RandomWalk {
 	
 	/**
 	 * Get the path that the random walk has passed.
-	 * start->B->C->now
+	 * start-&gt;B-&gt;C-&gt;now
 	 * @return String
 	 */
 	public String getPath() {

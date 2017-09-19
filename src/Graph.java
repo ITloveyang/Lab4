@@ -50,7 +50,7 @@ public class Graph {
 	
 	/**
 	 * Add an edge with from and to node name with name and weight.
-	 * <p>from---weight--->to.<br>
+	 * <p>from---weight---&gt;to.<br>
 	 * nodes will be created if it is not existed.<br>
 	 * if the edge has been in the graph, its weight will increases by 1.
 	 * @param from String
@@ -145,8 +145,8 @@ public class Graph {
 	
 	/**
 	 * Set all nodes' and edges'color to default.
-	 * @see Node.clearColor()
-	 * @see Edge.clearColor()
+	 * @see Node#clearColor()
+	 * @see Edge#clearColor()
 	 */
 	public void clearColor() {
 		if(nodes.isEmpty())return;

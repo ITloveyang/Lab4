@@ -11,9 +11,9 @@ public class Edge {
 	
 	/**
 	 * Initialize a edge, default color is black.
-	 * @param from
-	 * @param to
-	 * @param weight
+	 * @param from String
+	 * @param to String
+	 * @param weight int
 	 */
 	public Edge(String from, String to, int weight) {
 		this.from=from;
@@ -24,8 +24,8 @@ public class Edge {
 	
 	/**
 	 * Initialize a edge, default color is black, weight will be set to 1 if missing.
-	 * @param from
-	 * @param to
+	 * @param from String
+	 * @param to String
 	 */
 	public Edge(String from, String to) {
 		this(from,to,1);

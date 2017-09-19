@@ -92,7 +92,7 @@ public class ShortestPath {
 	 * @param word2 String
 	 * @return a list of all shortest path.
 	 * each path is like this<br>
-	 * A->B->C
+	 * A-&gt;B-&gt;C
 	 */
 	public static List<String> calcShortestPath(Graph G,String word1,String word2) {
 		spfa(G,word1);
