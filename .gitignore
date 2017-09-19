@@ -28,7 +28,7 @@ hs_err_pid*
 .project
 
 #graphviz
-graphviz-2.38/
+#graphviz-2.38/
 
 # Temp file
 tmp/
