@@ -1,5 +1,5 @@
 import java.util.Random;
-
+//根据桥接词生成新文本
 public class GenerateNewText {
     static Graph tempGraph;
     public static String generateNewText(Graph wordGraph, String Text) {
@@ -26,19 +26,19 @@ public class GenerateNewText {
             }
             String tempString = "";
             if(node1!=null){
-                for(Edge edge1:node1.edges) {
-                    String tempans = edge1.to;
-                    Node tempnode = wordGraph.getNode(tempans);
-                    for(Edge edge2:tempnode.edges){
-                        if (edge2.to.equals(nowString)){
-                            if (nowString.toLowerCase().equals(lastString.toLowerCase())&&nowString.toLowerCase().equals(tempans.toLowerCase())&&edge2.weight < 2)continue;
-                            if (tempString.equals(""))
-                                tempString = tempString + tempans;
-                            else 
-                                tempString = tempString + " " + tempans;
-                        }
-                    }
-                }
+	            for(Edge edge1:node1.edges) {
+	                String tempans = edge1.to;
+	                Node tempnode = wordGraph.getNode(tempans);
+	                for(Edge edge2:tempnode.edges){
+	                    if (edge2.to.equals(nowString)){
+	                        if (nowString.toLowerCase().equals(lastString.toLowerCase())&&nowString.toLowerCase().equals(tempans.toLowerCase())&&edge2.weight < 2)continue;
+	                        if (tempString.equals(""))
+	                            tempString = tempString + tempans;
+	                        else 
+	                            tempString = tempString + " " + tempans;
+	                    }
+	                }
+	            }
             }
             if (!tempString.equals("")){
                 String[] arrayString = tempString.split(" ");
@@ -46,8 +46,7 @@ public class GenerateNewText {
                 int i = new Random().nextInt(l);
                 Ans = Ans + " " + arrayString[i];
             }
-            if (Ans.equals("")) Ans = Ans+nowString;
-            else Ans = Ans + " " + nowString;
+             Ans = Ans + " " + nowString;
             lastString = nowString;
         }
         return Ans;

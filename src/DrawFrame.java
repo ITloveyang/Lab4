@@ -19,6 +19,10 @@ import javax.swing.UIManager;
 
 
 public class DrawFrame extends JFrame {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     String filename;
     Graph wordGraph = new Graph();
     /**
@@ -34,12 +38,11 @@ public class DrawFrame extends JFrame {
     private JPanel myPanel;
     public DrawFrame()
     {   
-        try {
+        try{
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (Exception e) { e.printStackTrace(); }
+        }catch (Exception e){e.printStackTrace();}
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
-        int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
         setSize(2*screenWidth/10,2*screenWidth/10);
         setLocationByPlatform(true);
@@ -100,15 +103,19 @@ public class DrawFrame extends JFrame {
             S = querry.queryBridgeWords(wordGraph,word1,word2);
             if (S.equals("1")){
                 JOptionPane.showMessageDialog(null,"The first word is not exist","Error",JOptionPane.ERROR_MESSAGE);
+            
             }
             else if (S.equals("2")){
                 JOptionPane.showMessageDialog(null,"The second word is not exist","Error",JOptionPane.ERROR_MESSAGE);
+            
             }
             else if (S.equals("3")){
                 JOptionPane.showMessageDialog(null,"The both words are not exist","Error",JOptionPane.ERROR_MESSAGE);
+            
             }
             else if (S.equals("0")){
                 JOptionPane.showMessageDialog(null,"There is no BridgeWords","Sorry",JOptionPane.ERROR_MESSAGE);
+            
             }
             else {
                 wordGraph.setNodeColor(word1, "blue");
@@ -118,6 +125,7 @@ public class DrawFrame extends JFrame {
                     wordGraph.setNodeColor(tempString, "green");
                     wordGraph.setEdgeColor(word1,tempString, "yellow");
                     wordGraph.setEdgeColor(tempString,word2,"yellow");
+               
                 }
                 ShowGraph.showDirectedGraph(wordGraph);
                 flush();

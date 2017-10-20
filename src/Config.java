@@ -16,7 +16,7 @@ public class Config {
      * load config.properties when start.
      */
     static {
-        loadConfig();
+    loadConfig();
     }
     
     /**
@@ -27,7 +27,7 @@ public class Config {
         Properties p = new Properties();
         try {
             p.load(new FileInputStream(propertiesFilename));
-        } catch (Exception e) {            
+        }catch(Exception e) {
             throw new RuntimeException("Load properties file Failed");
         }
         tmpPath=p.getProperty("tmpPath");

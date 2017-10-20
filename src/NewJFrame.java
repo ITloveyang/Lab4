@@ -30,6 +30,10 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class NewJFrame extends JFrame {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     String filename;
     Graph WordGraph = new Graph();
     private JPanel contentPane;

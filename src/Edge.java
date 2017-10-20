@@ -5,7 +5,7 @@
  *
  */
 public class Edge {
-    public String from,to;
+    public transient String from,to;
     public int weight;
     public String color;
     

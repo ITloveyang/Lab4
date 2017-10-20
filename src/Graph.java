@@ -12,8 +12,10 @@ public class Graph {
     /**
      * @see Node
      */
+	public Graph(){
+	}
     private Map<String,Node> nodes = new HashMap<>();
-
+    
     /**
      * Add a node to the graph with the node name.
      * <p>Initial color will be set to "none", node name is same as name.  
@@ -35,7 +37,7 @@ public class Graph {
      * An auxiliary function which help find the edge index.
      * @param from String
      * @param to String
-     * @return Integer, the index of the target edge in the node "from"'s out edge list.
+     * @return Integer
      */
     private Integer findEdgeIndex(String from, String to) {
         Node node=nodes.get(from);

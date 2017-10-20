@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class MyFile {
     
@@ -52,7 +51,7 @@ public class MyFile {
         for (int i = 1 ; i < node.size() ; i++){
             edge.add( node.get( i-1 ).toLowerCase() +" "+ node.get( i ).toLowerCase());
         }
-        Collections.sort(edge);
+        edge.sort(null);
         int cnt = 1;
         for (int i = 0 ; i < edge.size() ; i++){
             if (i+1== edge.size() || !edge.get(i).equals(edge.get(i + 1))){

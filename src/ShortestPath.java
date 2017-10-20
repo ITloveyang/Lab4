@@ -13,7 +13,7 @@ public class ShortestPath {
     private static Map<String,Integer> dis=new HashMap<>();
     private static final int INF=0x3f3f3f3f;
     private static List<String> tmpPath=new ArrayList<>();
-    private static List<String> paths=new ArrayList<>();
+    /*new String*/private static List<String> paths=new ArrayList<>();
     
     /**
      * Init auxiliary array for spfa.

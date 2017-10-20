@@ -16,7 +16,7 @@ public class Node {
      * Initialize node with name, default color is black.
      * @param name String node name=word
      */
-    public Node(String name) {
+    public Node(final String name) {
         this.name=name;
         this.color="black";
     }
